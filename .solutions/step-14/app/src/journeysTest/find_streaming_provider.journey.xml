@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<journey name="find_streaming_provider">
+    <description>Find streaming provider availability for Dune: Part Two</description>
+    <actions xml:space="preserve">
+        <action>View the trending movies list on the Explore screen</action>
+        <action>Tap on the movie card for "Dune: Part Two"</action>
+        <action>Switch to the "Stream" tab</action>
+        <action>Verify Netflix is available at AU$16.99/mo in 4K</action>
+        <action>Tap "Watch" button to trigger provider launch</action>
+    </actions>
+</journey>

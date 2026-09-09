@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<journey name="find_streaming_provider">
+    <description xml:space="preserve">Find streaming provider availability for Dune: Part Two</description>
+    <actions xml:space="preserve">
+        <!-- TODO: Step 14 — Add steps to test streaming availability -->
+        <action></action>
+    </actions>
+</journey>
