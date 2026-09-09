@@ -1,0 +1,8 @@
+# Studio Labs Journey: Find Streaming Provider for a Movie
+#
+# 1. Launch ICanHazStream on the emulator
+# 2. View the trending movies list on the Explore screen
+# 3. Tap on "Dune: Part Two"
+# 4. Switch to the "Stream" tab
+# 5. Verify Netflix is available at AU$16.99/mo in 4K
+# 6. Tap "Watch" button to trigger provider launch

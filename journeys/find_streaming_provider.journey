@@ -1,0 +1,10 @@
+# Studio Labs Journey: Find Streaming Provider for a Movie
+# TODO: Step 14 — Write a natural-language multimodal E2E test flow
+#
+# This journey test will:
+# 1. Launch the app on the Android Emulator
+# 2. View the trending movies list on the Explore screen
+# 3. Tap on the first movie card
+# 4. View the "Where to Watch" regional streaming options
+# 5. Tap on the "Netflix" provider badge
+# 6. Verify provider deep link details
