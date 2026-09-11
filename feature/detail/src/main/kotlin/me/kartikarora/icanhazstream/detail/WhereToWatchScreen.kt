@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -30,9 +31,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import me.kartikarora.icanhazstream.data.legacy.WatchCostUtils
+import me.kartikarora.icanhazstream.data.WatchCostUtils
 import me.kartikarora.icanhazstream.model.Movie
 import me.kartikarora.icanhazstream.model.StreamingProvider
 import me.kartikarora.icanhazstream.model.WatchOptionType
@@ -41,6 +44,7 @@ import me.kartikarora.icanhazstream.ui.components.RatingChip
 import me.kartikarora.icanhazstream.ui.theme.AppleTvDark
 import me.kartikarora.icanhazstream.ui.theme.BingeOrange
 import me.kartikarora.icanhazstream.ui.theme.DisneyBlue
+import me.kartikarora.icanhazstream.ui.theme.ICanHazStreamTheme
 import me.kartikarora.icanhazstream.ui.theme.NetflixRed
 import me.kartikarora.icanhazstream.ui.theme.PrimeVideoBlue
 import me.kartikarora.icanhazstream.ui.theme.StanGreen
@@ -80,10 +84,10 @@ fun WhereToWatchScreen(
     val buyPrice = movie.providers.find { it.type == WatchOptionType.BUY }?.price ?: 0.0
     val streamPrice = movie.providers.find { it.type == WatchOptionType.STREAM }?.price ?: 12.99
     val bestValueRecommendation = WatchCostUtils.calculateBestValueOption(
-        rentPrice,
-        buyPrice,
-        streamPrice,
-        1,
+        rentPrice = rentPrice,
+        buyPrice = buyPrice,
+        monthlySubPrice = streamPrice,
+        expectedRewatches = 1,
     )
 
     LazyColumn(
@@ -199,7 +203,7 @@ fun WhereToWatchScreen(
 
                 Card(
                     modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
+                    shape = RoundedCornerShape(12.dp),
                     colors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.surface,
                     ),
@@ -246,5 +250,27 @@ fun WhereToWatchScreen(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun WhereToWatchPreview() {
+    ICanHazStreamTheme {
+        WhereToWatchScreen(
+            movie = Movie(
+                id = "preview_1",
+                title = "Dune: Part Two",
+                overview = "Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family.",
+                releaseDate = "2024-03-01",
+                voteAverage = 8.6,
+                providers = listOf(
+                    StreamingProvider("netflix", "Netflix", null, WatchOptionType.STREAM, 16.99, "4K"),
+                    StreamingProvider("apple_tv", "Apple TV", null, WatchOptionType.RENT, 6.99, "4K"),
+                    StreamingProvider("prime", "Prime Video", null, WatchOptionType.BUY, 24.99, "4K"),
+                ),
+            ),
+            onProviderClick = {},
+        )
     }
 }
