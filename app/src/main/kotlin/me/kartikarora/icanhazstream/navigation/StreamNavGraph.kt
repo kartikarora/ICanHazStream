@@ -27,7 +27,9 @@ import me.kartikarora.icanhazstream.detail.WhereToWatchScreen
 import me.kartikarora.icanhazstream.explore.TrendingMoviesScreen
 import me.kartikarora.icanhazstream.explore.TrendingMoviesViewModel
 import me.kartikarora.icanhazstream.model.Movie
+import me.kartikarora.icanhazstream.watchlist.DefaultWatchlistRepository
 import me.kartikarora.icanhazstream.watchlist.WatchlistScreen
+import me.kartikarora.icanhazstream.watchlist.WatchlistViewModel
 
 private sealed interface Screen {
     data object Explore : Screen
@@ -50,6 +52,9 @@ fun StreamNavGraph(
 
     val exploreViewModel: TrendingMoviesViewModel = viewModel {
         TrendingMoviesViewModel(repository)
+    }
+    val watchlistViewModel: WatchlistViewModel = viewModel {
+        WatchlistViewModel(DefaultWatchlistRepository())
     }
 
     val title = when (val screen = currentScreen) {
@@ -118,6 +123,7 @@ fun StreamNavGraph(
                 }
                 Screen.Watchlist -> {
                     WatchlistScreen(
+                        viewModel = watchlistViewModel,
                         onMovieClick = { movie ->
                             previousScreen = Screen.Watchlist
                             currentScreen = Screen.Detail(movie)

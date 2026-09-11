@@ -15,7 +15,7 @@ class WatchlistViewModelTest {
 
     @BeforeEach
     fun setUp() {
-        repository = WatchlistRepository()
+        repository = DefaultWatchlistRepository()
         viewModel = WatchlistViewModel(repository)
     }
 
