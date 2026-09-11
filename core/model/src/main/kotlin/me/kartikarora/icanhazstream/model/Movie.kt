@@ -3,6 +3,7 @@ package me.kartikarora.icanhazstream.model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+// TODO: Step 06 — Add @Serializable annotations and verify kotlinx.serialization integration
 @Serializable
 data class Movie(
     val id: String,
