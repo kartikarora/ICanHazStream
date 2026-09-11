@@ -4,10 +4,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 enum class WatchOptionType {
-    STREAM,
-    RENT,
-    BUY,
-    FREE,
+    STREAM,   // Flatrate subscription (e.g. Netflix, Stan)
+    RENT,     // Digital rental (e.g. Apple TV, Prime Video)
+    BUY,      // Digital purchase
+    FREE,     // Free with ads (e.g. ABC iview, SBS On Demand)
 }
 
 @Serializable

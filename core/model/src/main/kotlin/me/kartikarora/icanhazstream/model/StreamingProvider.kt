@@ -9,5 +9,5 @@ data class StreamingProvider(
     val logoPath: String? = null,
     val type: WatchOptionType,
     val price: Double? = null,
-    val quality: String? = null,
+    val quality: String? = null, // 4K, HD, SD
 )
