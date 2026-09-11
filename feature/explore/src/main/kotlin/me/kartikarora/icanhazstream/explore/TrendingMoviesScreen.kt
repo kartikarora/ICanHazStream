@@ -16,16 +16,11 @@ import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.Observer
-import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import me.kartikarora.icanhazstream.model.Movie
 
 /**
@@ -37,27 +32,9 @@ fun TrendingMoviesScreen(
     onMovieClick: (Movie) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val lifecycleOwner = LocalLifecycleOwner.current
-
-    var movies by remember { mutableStateOf(viewModel.trendingMovies.value ?: emptyList()) }
-    var isLoading by remember { mutableStateOf(viewModel.isLoading.value ?: false) }
-    var selectedCategory by remember { mutableStateOf(viewModel.selectedCategory.value ?: "All") }
-
-    DisposableEffect(viewModel, lifecycleOwner) {
-        val moviesObserver = Observer<List<Movie>> { movies = it }
-        val loadingObserver = Observer<Boolean> { isLoading = it }
-        val categoryObserver = Observer<String> { selectedCategory = it }
-
-        viewModel.trendingMovies.observe(lifecycleOwner, moviesObserver)
-        viewModel.isLoading.observe(lifecycleOwner, loadingObserver)
-        viewModel.selectedCategory.observe(lifecycleOwner, categoryObserver)
-
-        onDispose {
-            viewModel.trendingMovies.removeObserver(moviesObserver)
-            viewModel.isLoading.removeObserver(loadingObserver)
-            viewModel.selectedCategory.removeObserver(categoryObserver)
-        }
-    }
+    val movies by viewModel.trendingMovies.collectAsStateWithLifecycle()
+    val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
+    val selectedCategory by viewModel.selectedCategory.collectAsStateWithLifecycle()
 
     val categories = listOf("All", "Streaming", "Rent / Buy", "Top Rated")
 
