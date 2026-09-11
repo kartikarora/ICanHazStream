@@ -32,7 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import me.kartikarora.icanhazstream.data.legacy.WatchCostUtils
+import me.kartikarora.icanhazstream.data.WatchCostUtils
 import me.kartikarora.icanhazstream.model.Movie
 import me.kartikarora.icanhazstream.model.StreamingProvider
 import me.kartikarora.icanhazstream.model.WatchOptionType
