@@ -9,35 +9,41 @@ import kotlinx.coroutines.launch
 import me.kartikarora.icanhazstream.data.MovieRepository
 import me.kartikarora.icanhazstream.model.Movie
 
+/**
+ * ViewModel for the Movie Detail screen.
+ * Safely handles null values and empty regional provider data.
+ */
 class MovieDetailViewModel(
+    private val movieId: String,
     private val repository: MovieRepository,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<MovieDetailUiState>(MovieDetailUiState.Loading)
-    val uiState: StateFlow<MovieDetailUiState> = _uiState.asStateFlow()
+    private val _movie = MutableStateFlow<Movie?>(null)
+    val movie: StateFlow<Movie?> = _movie.asStateFlow()
 
-    fun loadMovieDetails(movieId: String, countryCode: String = "AU") {
+    private val _streamSummary = MutableStateFlow<String>("")
+    val streamSummary: StateFlow<String> = _streamSummary.asStateFlow()
+
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
+
+    init {
+        loadMovieDetails()
+    }
+
+    private fun loadMovieDetails() {
+        _isLoading.value = true
         viewModelScope.launch {
-            _uiState.value = MovieDetailUiState.Loading
-            try {
-                val movie = repository.getMovieDetails(movieId)
-                if (movie != null) {
-                    val providers = movie.providers.filter { it.type.name == "STREAM" }
-                    // TODO: Step 13 — Fix NullPointerException crash when title has no providers in selected country
-                    val primaryProvider = providers.first().name // Causes NoSuchElementException / Crash
-                    _uiState.value = MovieDetailUiState.Success(movie, primaryProvider)
-                } else {
-                    _uiState.value = MovieDetailUiState.Error("Movie not found")
-                }
-            } catch (e: Exception) {
-                _uiState.value = MovieDetailUiState.Error(e.message ?: "Unknown error")
+            val movie = repository.getMovieDetails(movieId)
+            _movie.value = movie
+
+            // Safely compute stream summary
+            _streamSummary.value = when {
+                movie == null -> "Movie details unavailable"
+                movie.providers.isEmpty() -> "${movie.title} is not currently streaming in Australia"
+                else -> "${movie.title} is streaming on ${movie.providers.joinToString(", ") { it.name }}"
             }
+            _isLoading.value = false
         }
     }
-}
-
-sealed interface MovieDetailUiState {
-    data object Loading : MovieDetailUiState
-    data class Success(val movie: Movie, val primaryProvider: String) : MovieDetailUiState
-    data class Error(val message: String) : MovieDetailUiState
 }
