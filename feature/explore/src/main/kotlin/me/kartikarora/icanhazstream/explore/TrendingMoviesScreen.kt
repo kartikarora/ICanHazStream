@@ -19,9 +19,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import me.kartikarora.icanhazstream.model.Movie
 import me.kartikarora.icanhazstream.ui.components.SlidingTabs
+import me.kartikarora.icanhazstream.ui.theme.ICanHazStreamTheme
 import me.kartikarora.icanhazstream.ui.theme.spacing
 
 /**
@@ -38,6 +40,7 @@ fun TrendingMoviesScreen(
     val selectedCategory by viewModel.selectedCategory.collectAsStateWithLifecycle()
 
     val categories = listOf("All", "Streaming", "Rent / Buy", "Top Rated")
+
     val spacing = MaterialTheme.spacing
 
     Column(modifier = modifier.fillMaxSize()) {
@@ -73,6 +76,25 @@ fun TrendingMoviesScreen(
                         onClick = onMovieClick,
                     )
                 }
+            }
+        }
+    }
+}
+
+@PreviewLightDark
+@Composable
+private fun TrendingMoviesPreview() {
+    ICanHazStreamTheme {
+        Column(modifier = Modifier.fillMaxSize()) {
+            val spacing = MaterialTheme.spacing
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = spacing.small, vertical = spacing.extraSmall),
+                horizontalArrangement = Arrangement.spacedBy(spacing.extraSmall),
+            ) {
+                FilterChip(selected = true, onClick = {}, label = { Text("All") })
+                FilterChip(selected = false, onClick = {}, label = { Text("Streaming") })
             }
         }
     }
