@@ -1,0 +1,6 @@
+# Block local keystores, private credentials, and solution code from Gemini indexing
+*.jks
+*.keystore
+local.properties
+google-services.json
+.solutions/
