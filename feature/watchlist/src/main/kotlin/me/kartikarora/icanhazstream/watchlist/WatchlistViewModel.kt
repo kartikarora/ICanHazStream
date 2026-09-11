@@ -2,22 +2,49 @@ package me.kartikarora.icanhazstream.watchlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import me.kartikarora.icanhazstream.model.Movie
 
-// TODO: Step 10 — Implement WatchlistViewModel with StateFlow
+/**
+ * ViewModel for the Watchlist screen.
+ */
 class WatchlistViewModel(
-    private val repository: WatchlistRepository = WatchlistRepository(),
+    private val repository: WatchlistRepository,
 ) : ViewModel() {
 
-    val watchlist: StateFlow<List<Movie>> = repository.watchlist.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = emptyList(),
-    )
+    private val _watchlist = MutableStateFlow<List<Movie>>(emptyList())
+    val watchlist: StateFlow<List<Movie>> = _watchlist.asStateFlow()
+
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
+
+    init {
+        loadWatchlist()
+    }
+
+    fun loadWatchlist() {
+        _isLoading.value = true
+        viewModelScope.launch {
+            repository.getWatchlist().collectLatest { movies ->
+                _watchlist.value = movies
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun toggleWatchlist(movie: Movie) {
+        viewModelScope.launch {
+            if (repository.isInWatchlist(movie.id)) {
+                repository.removeFromWatchlist(movie.id)
+            } else {
+                repository.addToWatchlist(movie)
+            }
+        }
+    }
 
     fun removeFromWatchlist(movieId: String) {
         viewModelScope.launch {
