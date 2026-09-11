@@ -1,59 +1,54 @@
 package me.kartikarora.icanhazstream.explore
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import me.kartikarora.icanhazstream.data.MovieRepository
 import me.kartikarora.icanhazstream.model.Movie
 
 /**
- * ViewModel managing trending movies and regional filtering.
- * Currently uses legacy LiveData — refactor to StateFlow in Step 03.
+ * ViewModel for the Trending Movies / Explore screen.
+ * Uses StateFlow for modern reactive Compose UI state management.
  */
 class TrendingMoviesViewModel(
     private val repository: MovieRepository,
 ) : ViewModel() {
 
-    private val _trendingMovies = MutableLiveData<List<Movie>>(emptyList())
-    val trendingMovies: LiveData<List<Movie>> = _trendingMovies
+    private val _trendingMovies = MutableStateFlow<List<Movie>>(emptyList())
+    val trendingMovies: StateFlow<List<Movie>> = _trendingMovies.asStateFlow()
 
-    private val _isLoading = MutableLiveData<Boolean>(false)
-    val isLoading: LiveData<Boolean> = _isLoading
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
-    private val _selectedCategory = MutableLiveData<String>("All")
-    val selectedCategory: LiveData<String> = _selectedCategory
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
+
+    private val _selectedCategory = MutableStateFlow("All")
+    val selectedCategory: StateFlow<String> = _selectedCategory.asStateFlow()
 
     init {
         loadTrendingMovies()
     }
 
-    fun loadTrendingMovies() {
-        viewModelScope.launch {
-            _isLoading.value = true
-            try {
-                _trendingMovies.value = repository.getTrendingMovies().first()
-            } finally {
-                _isLoading.value = false
-            }
-        }
-    }
-
     fun selectCategory(category: String) {
         _selectedCategory.value = category
+    }
+
+    fun loadTrendingMovies() {
+        _isLoading.value = true
+        _errorMessage.value = null
         viewModelScope.launch {
-            _isLoading.value = true
             try {
-                val allMovies = repository.getTrendingMovies().first()
-                _trendingMovies.value = when (category) {
-                    "Streaming" -> allMovies.filter { it.providers.any { p -> p.type.name == "STREAM" } }
-                    "Rent / Buy" -> allMovies.filter { it.providers.any { p -> p.type.name == "RENT" || p.type.name == "BUY" } }
-                    "Top Rated" -> allMovies.filter { it.voteAverage >= 8.0 }
-                    else -> allMovies
+                repository.getTrendingMovies().collectLatest { movies ->
+                    _trendingMovies.value = movies
+                    _isLoading.value = false
                 }
-            } finally {
+            } catch (e: Exception) {
+                _errorMessage.value = e.message ?: "Failed to load trending movies"
                 _isLoading.value = false
             }
         }
