@@ -1,0 +1,23 @@
+project:
+  name: "ICanHazStream"
+
+modules:
+  - app
+  - core/model
+  - core/data
+  - core/ui
+  - core/testing
+  - feature/explore
+  - feature/detail
+  - feature/watchlist
+
+repositories:
+  - google
+  - mavenCentral
+
+lightbuild:
+  version: "0.0.20-alpha02"
+
+build:
+  java:
+    version: "17"
