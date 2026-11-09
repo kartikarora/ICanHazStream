@@ -13,3 +13,5 @@ captures/
 .kotlin/
 build-logic/.kotlin/
 .lightbuild/
+.claude/
+.gemini/
