@@ -20,4 +20,4 @@ lightbuild:
 
 build:
   java:
-    version: "17"
+    version: "21"
