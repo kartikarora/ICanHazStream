@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "me.kartikarora.icanhazstream"
+    namespace = "me.kartikarora.icanhazstream.core"
 }
 
 dependencies {

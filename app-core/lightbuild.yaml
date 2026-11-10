@@ -2,7 +2,7 @@ type: library
 platform: android
 
 android:
-  namespace: me.kartikarora.icanhazstream
+  namespace: me.kartikarora.icanhazstream.core
   compileSdk:
     version:
       release:
