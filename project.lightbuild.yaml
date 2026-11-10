@@ -3,6 +3,7 @@ project:
 
 modules:
   - app
+  - app-core
   - core/model
   - core/data
   - core/ui
@@ -16,7 +17,7 @@ repositories:
   - mavenCentral
 
 lightbuild:
-  version: "0.0.20-alpha02"
+  version: "0.0.30"
 
 build:
   java:

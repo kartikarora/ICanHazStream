@@ -33,6 +33,7 @@ plugins {
 rootProject.name = "ICanHazStream"
 
 include(":app")
+include(":app-core")
 include(":feature:explore")
 include(":feature:detail")
 include(":feature:watchlist")
