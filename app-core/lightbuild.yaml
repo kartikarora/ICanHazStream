@@ -1,0 +1,32 @@
+type: library
+platform: android
+
+android:
+  namespace: me.kartikarora.icanhazstream.core
+  compileSdk:
+    version:
+      release:
+        apiLevel: 37
+  minSdk:
+    version:
+      release:
+        apiLevel: 24
+  dependencies:
+    module:
+      - //feature/explore
+      - //feature/detail
+      - //feature/watchlist
+      - //core/model
+      - //core/data
+      - //core/ui
+    maven:
+      - androidx.compose.ui:ui:1.6.0
+      - androidx.compose.ui:ui-tooling-preview:1.6.0
+      - androidx.compose.material3:material3:1.2.0
+      - androidx.compose.material:material-icons-extended:1.6.0
+      - androidx.core:core-ktx:1.10.1
+      - androidx.lifecycle:lifecycle-runtime-ktx:2.6.1
+      - androidx.activity:activity-compose:1.8.0
+      - androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1
+      - androidx.lifecycle:lifecycle-runtime-compose:2.6.1
+      - org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3

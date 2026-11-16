@@ -1,0 +1,24 @@
+type: library
+platform: android
+
+android:
+  namespace: me.kartikarora.icanhazstream.testing
+  compileSdk:
+    version:
+      release:
+        apiLevel: 37
+  minSdk:
+    version:
+      release:
+        apiLevel: 24
+  dependencies:
+    module:
+      - //core/model
+      - //core/data
+    maven:
+      - junit:junit:4.13.2
+      - org.junit.jupiter:junit-jupiter-api:5.14.4
+      - androidx.arch.core:core-testing:2.2.0
+      - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0
+      - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0
+      - app.cash.turbine:turbine:1.2.1

@@ -1,0 +1,23 @@
+type: application
+platform: android
+
+android:
+  namespace: me.kartikarora.icanhazstream
+  applicationId: me.kartikarora.icanhazstream
+  versionCode: 1
+  versionName: "1.0"
+  compileSdk:
+    version:
+      release:
+        apiLevel: 37
+  minSdk:
+    version:
+      release:
+        apiLevel: 24
+  targetSdk:
+    version:
+      release:
+        apiLevel: 37
+  dependencies:
+    module:
+      - //app-core

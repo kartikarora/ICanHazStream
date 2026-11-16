@@ -13,5 +13,7 @@ captures/
 .kotlin/
 build-logic/.kotlin/
 
-# Lightbuild
+# Lightbuild & AI config
 .lightbuild/
+.claude/
+.gemini/
