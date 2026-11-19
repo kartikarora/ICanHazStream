@@ -3,37 +3,39 @@ package me.kartikarora.icanhazstream.watchlist
 import app.cash.turbine.test
 import kotlinx.coroutines.test.runTest
 import me.kartikarora.icanhazstream.model.Movie
-import me.kartikarora.icanhazstream.testing.MainDispatcherExtension
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
+import me.kartikarora.icanhazstream.testing.MainDispatcherRule
+import org.junit.Assert.assertTrue
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 
 /**
  * Unit tests for [WatchlistViewModel] using Turbine.
  */
-@ExtendWith(MainDispatcherExtension::class)
 class WatchlistViewModelTest {
+
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     private lateinit var repository: DefaultWatchlistRepository
     private lateinit var viewModel: WatchlistViewModel
 
-    @BeforeEach
+    @Before
     fun setup() {
         repository = DefaultWatchlistRepository()
         viewModel = WatchlistViewModel(repository)
     }
 
     @Test
-    fun `initial watchlist state loads pre-populated movies`() = runTest {
+    fun initialWatchlistStateLoadsPrePopulatedMovies() = runTest {
         viewModel.watchlist.test {
             val initial = awaitItem()
-            assert(initial.isNotEmpty())
+            assertTrue(initial.isNotEmpty())
         }
     }
 
     @Test
-    fun `adding movie to watchlist updates flow`() = runTest {
+    fun addingMovieToWatchlistUpdatesFlow() = runTest {
         val newMovie = Movie(id = "test_movie", title = "Test Movie", overview = "Overview")
 
         viewModel.watchlist.test {
@@ -42,12 +44,12 @@ class WatchlistViewModelTest {
             viewModel.toggleWatchlist(newMovie)
 
             val updated = awaitItem()
-            assert(updated.any { it.id == "test_movie" })
+            assertTrue(updated.any { it.id == "test_movie" })
         }
     }
 
     @Test
-    fun `removing movie from watchlist updates flow`() = runTest {
+    fun removingMovieFromWatchlistUpdatesFlow() = runTest {
         val movieToRemove = viewModel.watchlist.value.first()
 
         viewModel.watchlist.test {
@@ -56,7 +58,7 @@ class WatchlistViewModelTest {
             viewModel.removeFromWatchlist(movieToRemove.id)
 
             val updated = awaitItem()
-            assert(updated.none { it.id == movieToRemove.id })
+            assertTrue(updated.none { it.id == movieToRemove.id })
         }
     }
 }

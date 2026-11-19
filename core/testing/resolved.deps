@@ -86,12 +86,8 @@ sourceSets:
       compile: 'off'
   - org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.6.3:
       compile: 'off'
-  - org.junit:junit-bom:5.14.4
-  - org.junit.jupiter:junit-jupiter-api:5.14.4
-  - org.junit.platform:junit-platform-commons:1.14.4
   - org.mockito:mockito-core:2.25.0
   - org.objenesis:objenesis:2.6
-  - org.opentest4j:opentest4j:1.3.0
   - org.slf4j:slf4j-api:1.7.36:
       compile: 'off'
 dependencies:
@@ -981,55 +977,6 @@ dependencies:
   - org.jetbrains.kotlin:kotlin-stdlib-common:2.3.20
   - org.jetbrains.kotlinx:kotlinx-serialization-bom:1.6.3
   - org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3
-- id: org.junit:junit-bom:5.14.4
-  resolvedVersion: 5.14.4
-  artifacts:
-    module:
-      url: https://repo1.maven.org/maven2/org/junit/junit-bom/5.14.4/junit-bom-5.14.4.module
-      sha256: 8a5e98d131de7d7aadb1ee88bfd86d66e62a7c2e2a4074a3b2498b03d236eb64
-      cachePath: org/junit/junit-bom/5.14.4/junit-bom-5.14.4.module
-    pom:
-      url: https://repo1.maven.org/maven2/org/junit/junit-bom/5.14.4/junit-bom-5.14.4.pom
-      sha256: 5706e8f29a0a07f56efbbea4a0670793414194bb8d24d8143ba1e787a2f32856
-      cachePath: org/junit/junit-bom/5.14.4/junit-bom-5.14.4.pom
-  isPlatform: true
-- id: org.junit.jupiter:junit-jupiter-api:5.14.4
-  requestedVersion: 5.14.4
-  resolvedVersion: 5.14.4
-  artifacts:
-    jar:
-      url: https://repo1.maven.org/maven2/org/junit/jupiter/junit-jupiter-api/5.14.4/junit-jupiter-api-5.14.4.jar
-      sha256: aa1ae085fd92dfdbf85d867e60e59adc599bac183b46fc7e0698198bf426ad3f
-      cachePath: org/junit/jupiter/junit-jupiter-api/5.14.4/junit-jupiter-api-5.14.4.jar
-    module:
-      url: https://repo1.maven.org/maven2/org/junit/jupiter/junit-jupiter-api/5.14.4/junit-jupiter-api-5.14.4.module
-      sha256: d5396ae8bb545e838e6fdfeca0f923b05ec44dcf79e0370c89e76b403df7e680
-      cachePath: org/junit/jupiter/junit-jupiter-api/5.14.4/junit-jupiter-api-5.14.4.module
-    pom:
-      url: https://repo1.maven.org/maven2/org/junit/jupiter/junit-jupiter-api/5.14.4/junit-jupiter-api-5.14.4.pom
-      sha256: 4c175189fd774dcd90cb23cfcab2ce9dbf2f5d0a16d7ef3702e7cfcd6411a762
-      cachePath: org/junit/jupiter/junit-jupiter-api/5.14.4/junit-jupiter-api-5.14.4.pom
-  transitiveDependencies:
-  - org.junit:junit-bom:5.14.4
-  - org.junit.platform:junit-platform-commons:1.14.4
-  - org.opentest4j:opentest4j:1.3.0
-- id: org.junit.platform:junit-platform-commons:1.14.4
-  resolvedVersion: 1.14.4
-  artifacts:
-    jar:
-      url: https://repo1.maven.org/maven2/org/junit/platform/junit-platform-commons/1.14.4/junit-platform-commons-1.14.4.jar
-      sha256: 55c8a0c069ac1bc4e1f8bbb26b5eae95cbd10e4ff1b23248441ab61a607381e1
-      cachePath: org/junit/platform/junit-platform-commons/1.14.4/junit-platform-commons-1.14.4.jar
-    module:
-      url: https://repo1.maven.org/maven2/org/junit/platform/junit-platform-commons/1.14.4/junit-platform-commons-1.14.4.module
-      sha256: b19a80798c07589af4dff200f85d091ea82d4c7c918e01447fa05e5597d7a23b
-      cachePath: org/junit/platform/junit-platform-commons/1.14.4/junit-platform-commons-1.14.4.module
-    pom:
-      url: https://repo1.maven.org/maven2/org/junit/platform/junit-platform-commons/1.14.4/junit-platform-commons-1.14.4.pom
-      sha256: d77be81708cf9836db7a09908e6d9e4d94c527e090bd594cc4af06711b9d853d
-      cachePath: org/junit/platform/junit-platform-commons/1.14.4/junit-platform-commons-1.14.4.pom
-  transitiveDependencies:
-  - org.junit:junit-bom:5.14.4
 - id: org.mockito:mockito-core:2.25.0
   resolvedVersion: 2.25.0
   artifacts:
@@ -1054,21 +1001,6 @@ dependencies:
       url: https://repo1.maven.org/maven2/org/objenesis/objenesis/2.6/objenesis-2.6.pom
       sha256: 4c1307909dc62df1bd91f075503f8bdef5ae445e13353f1752af9448bea1d3f1
       cachePath: org/objenesis/objenesis/2.6/objenesis-2.6.pom
-- id: org.opentest4j:opentest4j:1.3.0
-  resolvedVersion: 1.3.0
-  artifacts:
-    jar:
-      url: https://repo1.maven.org/maven2/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar
-      sha256: 48e2df636cab6563ced64dcdff8abb2355627cb236ef0bf37598682ddf742f1b
-      cachePath: org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar
-    module:
-      url: https://repo1.maven.org/maven2/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.module
-      sha256: 48bf1d6c8b5dc94f74652bd17900f654deb714350248cf5e8fca27b9090c8e0d
-      cachePath: org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.module
-    pom:
-      url: https://repo1.maven.org/maven2/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.pom
-      sha256: 9bf7cffc410f3e8372c2522578df9ca56d9d43bd937e30948706c232a943b355
-      cachePath: org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.pom
 - id: org.slf4j:slf4j-api:1.7.36
   resolvedVersion: 1.7.36
   artifacts:

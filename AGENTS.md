@@ -24,7 +24,7 @@ This project is built and managed using **Android Lightbuild** (Lightbuild 0.0.3
 
 ### Lightbuild CLI Workflows
 - **Build APK:** `lightbuild build app:app-debug.apk`
-- **Run Tests:** `lightbuild test <target>` (e.g. `lightbuild test feature/watchlist:hostTest`)
+- **Run Tests:** `lightbuild test <target>` (e.g. `lightbuild test feature/explore:hostTest` or `lightbuild test feature/watchlist:hostTest`)
 - **Query Modules / Targets:** `lightbuild query //...`
 - **Dependency Resolution:**
   - `lightbuild build`, `lightbuild test`, and Android Studio Canary run tasks **automatically** resolve dependencies and update `resolved.deps` when `lightbuild.yaml` changes.
@@ -54,9 +54,9 @@ The `kartikarora-compose-theme` skill teaches the AI about the pre-built `:core:
 ## Testing Philosophy
 
 - **Fakes over Mocks**: Use test fakes from `:core:testing` (e.g., `FakeMovieRepository`).
-- **JUnit 5 & Turbine**: Use JUnit 5 (`org.junit.jupiter.api.*`) and Turbine (`app.cash.turbine:turbine`) for ViewModel and StateFlow unit tests.
+- **JUnit 4 & Turbine**: Use JUnit 4 (`junit:junit:4.13.2`, `org.junit.*`) and Turbine (`app.cash.turbine:turbine`) for ViewModel and StateFlow unit tests (Lightbuild 0.0.30 executes Android host unit tests on JUnit 4).
 - **Host Test Configuration**: In module `lightbuild.yaml`, declare unit test dependencies under `android.tests.test.dependencies` (`module: [//core/testing]` and `maven:` dependencies).
-- **Compose UI Test**: For instrumented UI tests.
+- **Instrumented Tests**: Instrumented `src/androidTest` suites require an explicit `androidTest` block in `lightbuild.yaml` and are omitted on this branch.
 
 ## JetBrains & Android Stack
 
