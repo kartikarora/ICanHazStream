@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "skills": {
+    "kartikarora-brand": {
+      "source": "https://distribute.kartikarora.me/ai/kartikarora-brand.skill",
+      "sourceUrl": "https://distribute.kartikarora.me/ai/kartikarora-brand.skill",
+      "sourceType": "download",
+      "skillPath": "SKILL.md",
+      "computedHash": "5a5ab08c81be648a09ea023ab092b5069439bb81d33d802632d3dcf7f20d7b21"
+    },
+    "kartikarora-compose-theme": {
+      "source": "https://distribute.kartikarora.me/ai/kartikarora-compose-theme.skill",
+      "sourceUrl": "https://distribute.kartikarora.me/ai/kartikarora-compose-theme.skill",
+      "sourceType": "download",
+      "skillPath": "SKILL.md",
+      "computedHash": "8122571afa8a1b0b7c5468efda2f2bc7bd042576a9057f30bd1b05ed35fe544d"
+    }
+  }
+}

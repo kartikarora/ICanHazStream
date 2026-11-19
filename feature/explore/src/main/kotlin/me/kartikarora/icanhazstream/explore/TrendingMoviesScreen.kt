@@ -23,10 +23,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Observer
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import me.kartikarora.icanhazstream.model.Movie
+import me.kartikarora.icanhazstream.ui.components.SlidingTabs
+import me.kartikarora.icanhazstream.ui.theme.spacing
 
 /**
  * Explore Screen displaying Trending Movies and regional streaming availability.
@@ -60,22 +61,21 @@ fun TrendingMoviesScreen(
     }
 
     val categories = listOf("All", "Streaming", "Rent / Buy", "Top Rated")
+    val spacing = MaterialTheme.spacing
 
     Column(modifier = modifier.fillMaxSize()) {
-        Row(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp, vertical = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                .padding(horizontal = spacing.small, vertical = spacing.extraSmall),
         ) {
-            categories.forEach { category ->
-                FilterChip(
-                    selected = selectedCategory == category,
-                    onClick = { viewModel.selectCategory(category) },
-                    label = { Text(text = category) },
-                )
-            }
+            SlidingTabs(
+                tabs = categories,
+                selectedTab = selectedCategory,
+                onTabSelected = { viewModel.selectCategory(it) },
+                tabLabel = { it },
+            )
         }
 
         if (isLoading) {
@@ -88,7 +88,7 @@ fun TrendingMoviesScreen(
         } else {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(4.dp),
+                verticalArrangement = Arrangement.spacedBy(spacing.extraSmall),
             ) {
                 items(movies, key = { it.id }) { movie ->
                     MovieProviderCard(

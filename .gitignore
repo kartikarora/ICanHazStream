@@ -12,3 +12,6 @@ captures/
 # Kotlin daemon cache
 .kotlin/
 build-logic/.kotlin/
+
+# Lightbuild
+.lightbuild/
