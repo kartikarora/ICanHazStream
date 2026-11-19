@@ -34,6 +34,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import me.kartikarora.icanhazstream.data.WatchCostUtils
 import me.kartikarora.icanhazstream.model.Movie
@@ -51,6 +52,8 @@ import me.kartikarora.icanhazstream.ui.components.BrandButton
 import me.kartikarora.icanhazstream.ui.components.BrandButtonVariant
 import me.kartikarora.icanhazstream.ui.components.BrandStatement
 import me.kartikarora.icanhazstream.ui.components.SlidingTabs
+import me.kartikarora.icanhazstream.ui.components.StatusBadge
+import me.kartikarora.icanhazstream.ui.components.StatusBadgeVariant
 import me.kartikarora.icanhazstream.ui.components.TokyoCard
 import me.kartikarora.icanhazstream.ui.theme.StanGreen
 import me.kartikarora.icanhazstream.ui.theme.spacing
@@ -199,7 +202,7 @@ fun WhereToWatchScreen(
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             ProviderBadge(name = provider.name, badgeColor = badgeColor)
                             Spacer(modifier = Modifier.width(spacing.extraSmall))
-                            Column {
+                            Column(verticalArrangement = Arrangement.spacedBy(spacing.extraSmall)) {
                                 provider.price?.let { price ->
                                     Text(
                                         text = "AU\$$price" + if (provider.type == WatchOptionType.STREAM) "/mo" else "",
@@ -208,10 +211,9 @@ fun WhereToWatchScreen(
                                     )
                                 }
                                 provider.quality?.let { q ->
-                                    Text(
-                                        text = q,
-                                        style = MaterialTheme.typography.labelSmall,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    StatusBadge(
+                                        label = q,
+                                        variant = StatusBadgeVariant.Secondary,
                                     )
                                 }
                             }
@@ -229,6 +231,7 @@ fun WhereToWatchScreen(
     }
 }
 
+@PreviewLightDark
 @Preview(showBackground = true)
 @Composable
 fun WhereToWatchPreview() {
